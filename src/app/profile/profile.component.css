@@ -1,0 +1,14 @@
+#data{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 2vh;
+    background-color:#FF6F61;
+    margin: 4vw;
+}
+.user-image{
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  border: 3px solid gray;
+}

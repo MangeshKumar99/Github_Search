@@ -1,0 +1,52 @@
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="No image found" width="30" height="24" class="d-inline-block align-text-top">
+        Github Search
+      </a>
+    </div>
+</nav>
+
+<section class="d-flex justify-content-center">
+  <select class="select mt-4" #opt>
+    <option value="user">User</option>
+    <option value="repository">Repository</option>
+  </select>
+  &nbsp;&nbsp;
+  <input class="mt-4" #username type="text" placeholder="Search user/repository" />
+  &nbsp;&nbsp;
+  <button (click)="findProfile(username.value,opt.value)" class="btn btn-success btn-sm mt-4">Search</button>
+</section>
+
+
+
+  <div *ngIf="chooseType;then thenBlock;else elseBlock"></div>
+
+  <ng-template #thenBlock>
+    <div style="cursor: pointer;" id="data" (click)="onSelect(iterator.login)" *ngFor="let iterator of profile.items | paginate: { id:'listing_pagination',
+    itemsPerPage: 10,
+    currentPage: page, 
+    totalItems: totalRecords }">
+      <img src="{{ iterator.avatar_url }}" alt="No image found" class="user-image"/>
+      <h4>Name: {{ iterator.login }}</h4>
+      <h5>Id: {{ iterator.id }}</h5>
+    </div>
+  </ng-template>
+
+  <ng-template #elseBlock>
+    <div style="cursor: pointer;" id="data" (click)="onClick(iterator.owner.login,iterator.name)" *ngFor="let iterator of repo.items | paginate: { id:'listing_pagination',
+    itemsPerPage: 10,
+    currentPage: page, 
+    totalItems: totalRecords }">
+      <img src="{{ iterator.owner.avatar_url }}" alt="No image found" class="user-image"/>
+      <h4>{{iterator.name}}</h4>
+      <h4>Id: {{ iterator.id }}</h4>
+      <h5>Details:{{iterator.full_name}}</h5>
+    </div>
+  </ng-template>
+
+  <div>
+    <pagination-controls id="listing_pagination" (pageChange)="page = $event"></pagination-controls>
+  </div>
+
+
