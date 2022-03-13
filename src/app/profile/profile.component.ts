@@ -16,11 +16,9 @@ export class ProfileComponent implements OnInit {
   repo: any;
   chooseType: any;
   user: any;
-  isUserOrRepoSearched:boolean=false;
   constructor(private profileService: ProfileService, private route: Router) {}
 
   findProfile(username: any, opt: any) {
-    this.isUserOrRepoSearched=!this.isUserOrRepoSearched
     if (opt == 'user') {
       this.chooseType = true;
       console.log(username)
