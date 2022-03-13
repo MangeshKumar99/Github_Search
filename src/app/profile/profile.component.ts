@@ -16,14 +16,15 @@ export class ProfileComponent implements OnInit {
   repo: any;
   chooseType: any;
   user: any;
-
+  isUserOrRepoSearched:boolean=false;
   constructor(private profileService: ProfileService, private route: Router) {}
 
   findProfile(username: any, opt: any) {
+    this.isUserOrRepoSearched=!this.isUserOrRepoSearched
     if (opt == 'user') {
       this.chooseType = true;
+      console.log(username)
       this.profileService.getProfileInfo(username).subscribe((profile) => {
-        console.log(profile);
         this.profile = profile;
         this.totalRecords = this.profile.items.length;
       });
@@ -45,5 +46,6 @@ export class ProfileComponent implements OnInit {
     this.route.navigate(['./repo', user, repo]);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 }

@@ -1,11 +1,12 @@
-<div class="container-fluid d-flex justify-content-center mt-4">
+<div class="row container p-2">
+  <div class="col-4">
     <img src="{{ details.owner.avatar_url }}" class="avatar" />
-    <section class="d-inline p-4">
-      <h5>Repository name:&nbsp;{{ details.name }}</h5>
-      <h5>Id:&nbsp;{{ details.id }}</h5>
-      <h5>Issues:&nbsp;{{ details.open_issues }}</h5>
-      <h5>Subscribers:&nbsp;{{ details.subscribers_count}}</h5>
-      <h5>Git Url:&nbsp;{{ details.git_url}}</h5>
-    </section>
+  </div>
+  <div class="col-8">
+    <h5>Repository name:&nbsp;{{ details.name }}</h5>
+    <h5>Id:&nbsp;{{ details.id }}</h5>
+    <h5>Issues:&nbsp;{{ details.open_issues }}</h5>
+    <h5>Subscribers:&nbsp;{{ details.subscribers_count }}</h5>
+    <h5>Git Url:&nbsp;{{ details.git_url }}</h5>
+  </div>
 </div>
-  

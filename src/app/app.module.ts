@@ -24,7 +24,7 @@ import { ProfileDetailsComponent } from './profile-details/profile-details.compo
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule, 
 
  
   ],

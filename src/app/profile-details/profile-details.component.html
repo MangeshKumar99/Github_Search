@@ -1,33 +1,37 @@
-<div class="container-fluid d-flex justify-content-center mt-4">
-  <img src="{{ details.avatar_url }}" class="avatar" />
-
-  <section class="d-inline p-4">
+<div class="row container p-2">
+  <div class="col-4">
+    <img src="{{ details.avatar_url }}" class="avatar">
+  </div>
+  <div class="col-8">
     <h5>Login:&nbsp;{{ details.login }}</h5>
     <h5>Bio:&nbsp;{{ details.bio }}</h5>
     <h5>Company:&nbsp;{{ details.company }}</h5>
     <h5>Location:&nbsp;{{ details.location }}</h5>
-  </section>
-
-  <section>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Id</th>
-          <th scope="col">Repository name</th>
-          <th scope="col">Issues</th>
-          <th scope="col">Stargazers count</th>
-          <th scope="col">Git Url</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let iterator of userRepos">
-          <td>{{ iterator.id }}</td>
-          <td>{{ iterator.name }}</td>
-          <td>{{ iterator.open_issues }}</td>
-          <td>{{ iterator.stargazers_count }}</td>
-          <td>{{ iterator.git_url }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+  </div>
 </div>
+
+<div class="container" style="height: 300px;overflow: scroll;">
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Repository name</th>
+      <th scope="col">Issues</th>
+      <th scope="col">Stargazers count</th>
+      <th scope="col">Git Url</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let iterator of userRepos">
+      <td>{{ iterator.id }}</td>
+      <td>{{ iterator.name }}</td>
+      <td>{{ iterator.open_issues }}</td>
+      <td>{{ iterator.stargazers_count }}</td>
+      <td>{{ iterator.git_url }}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
