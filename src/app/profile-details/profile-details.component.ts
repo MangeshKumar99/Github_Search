@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../profile.service';
 import { ActivatedRoute, ParamMap} from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile-details',
@@ -11,6 +13,7 @@ export class ProfileDetailsComponent implements OnInit {
   user: any;
   userRepos: any;
   details: any;
+  ngUnsubscribe= new Subject<any>();
 
   constructor(
     private profileService: ProfileService,
@@ -20,13 +23,17 @@ export class ProfileDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.user = params.get('name');
-      this.profileService.getUserDetails(this.user).subscribe((data) => {
+      this.profileService.getUserDetails(this.user).pipe(takeUntil(this.ngUnsubscribe)).subscribe((data) => {
         this.details = data;
       });
-      console.log(this.user);
-      this.profileService.getUserRepos(this.user).subscribe((data) => {
+      this.profileService.getUserRepos(this.user).pipe(takeUntil(this.ngUnsubscribe)).subscribe((data) => {
         this.userRepos = data;
       });
     });
   }
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
 }

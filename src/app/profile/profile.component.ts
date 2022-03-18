@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../app/profile.service';
 import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -16,13 +18,14 @@ export class ProfileComponent implements OnInit {
   repo: any;
   chooseType: any;
   user: any;
+  ngUnsubscribe= new Subject<any>();
+
   constructor(private profileService: ProfileService, private route: Router) {}
 
   findProfile(username: any, opt: any) {
     if (opt == 'user') {
       this.chooseType = true;
-      console.log(username)
-      this.profileService.getProfileInfo(username).subscribe((profile) => {
+      this.profileService.getProfileInfo(username).pipe(takeUntil(this.ngUnsubscribe)).subscribe((profile) => {
         this.profile = profile;
         this.totalRecords = this.profile.items.length;
       });
@@ -34,9 +37,6 @@ export class ProfileComponent implements OnInit {
       });
     }
   }
-  getUserData(user: any) {
-    this.profileService.getUserDetails(user);
-  }
   onSelect(user: any) {
     this.route.navigate(['/user', user]);
   }
@@ -45,5 +45,10 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }
